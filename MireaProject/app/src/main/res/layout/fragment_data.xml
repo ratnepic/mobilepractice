@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DataFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardElevation="0dp"
+            app:contentPadding="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView2">
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Квантовые вычисления — решение задач с помощью манипуляции квантовыми объектами: атомами, молекулами, фотонами, электронами и специально созданными макроструктурами. Их использование позволяет ученым достичь двух квантовых явлений — суперпозиции и запутанности. Благодаря этому исследователи могут синтезировать новые материалы, лекарства, а также моделировать сложные молекулы и решать оптимизационные задачи, недоступные сейчас для самых мощных компьютеров."
+                android:textSize="20sp" />
+        </androidx.cardview.widget.CardView>
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="250dp"
+            android:src="@drawable/quantum"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/quantum"
+            tools:srcCompat="@drawable/quantum" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>
