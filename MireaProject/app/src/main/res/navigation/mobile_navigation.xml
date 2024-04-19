@@ -32,4 +32,9 @@
         android:name="com.mirea.porynovma.mireaproject.DataFragment"
         android:label="Квантовые вычисления"
         tools:layout="@layout/fragment_data" />
+    <fragment
+        android:id="@+id/nav_worker"
+        android:name="com.mirea.porynovma.mireaproject.WorkerFragment"
+        android:label="Фоновый процесс"
+        tools:layout="@layout/fragment_worker" />
 </navigation>
