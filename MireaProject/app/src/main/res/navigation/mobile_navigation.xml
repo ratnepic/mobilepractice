@@ -37,4 +37,19 @@
         android:name="com.mirea.porynovma.mireaproject.WorkerFragment"
         android:label="Фоновый процесс"
         tools:layout="@layout/fragment_worker" />
+    <fragment
+        android:id="@+id/nav_compass"
+        android:name="com.mirea.porynovma.mireaproject.CompassFragment"
+        android:label="Компас"
+        tools:layout="@layout/fragment_compass" />
+    <fragment
+        android:id="@+id/nav_profile"
+        android:name="com.mirea.porynovma.mireaproject.ProfileFragment"
+        android:label="Профиль"
+        tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/nav_audio"
+        android:name="com.mirea.porynovma.mireaproject.AudioFragment"
+        android:label="Аудио запись"
+        tools:layout="@layout/fragment_audio" />
 </navigation>

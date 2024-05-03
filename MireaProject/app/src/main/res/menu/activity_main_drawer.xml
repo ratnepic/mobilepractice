@@ -25,5 +25,14 @@
         <item
             android:id="@+id/nav_worker"
             android:title="Фоновый процесс" />
+        <item
+            android:id="@+id/nav_compass"
+            android:title="Компас" />
+        <item
+            android:id="@+id/nav_profile"
+            android:title="Профиль" />
+        <item
+            android:id="@+id/nav_audio"
+            android:title="Запись аудио" />
     </group>
 </menu>

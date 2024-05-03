@@ -24,7 +24,7 @@ public class MyWorker extends Worker {
     public Result doWork() {
         Log.d(TAG, "doWork: start");
         try {
-            for (int i = 0; i < 1000000; i++) {
+            for (int i = 0; i < 100; i++) {
                 Log.d("Worker Output", Integer.toString(i));
                 TimeUnit.MILLISECONDS.sleep(100);
             }
