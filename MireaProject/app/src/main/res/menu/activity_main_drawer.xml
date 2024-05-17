@@ -34,5 +34,8 @@
         <item
             android:id="@+id/nav_audio"
             android:title="Запись аудио" />
+        <item
+            android:id="@+id/nav_file"
+            android:title="Работа с файлами" />
     </group>
 </menu>

@@ -2,7 +2,9 @@ package com.mirea.porynovma.mireaproject;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -24,6 +26,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -92,6 +95,8 @@ public class ProfileFragment extends Fragment {
         ImageView profileImage = view.findViewById(R.id.profileImage);
         Button photoButton = view.findViewById(R.id.photoButton);
         Button saveButton = view.findViewById(R.id.saveButton);
+        EditText nameEdit = view.findViewById(R.id.nameField);
+        EditText ageEdit = view.findViewById(R.id.ageField);
 
         int cameraPermissionStatus = ContextCompat.checkSelfPermission(view.getContext(), android.Manifest.permission.CAMERA);
         int storagePermissionStatus = ContextCompat.checkSelfPermission(view.getContext(), android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
@@ -134,6 +139,15 @@ public class ProfileFragment extends Fragment {
         });
 
         saveButton.setOnClickListener(v -> {
+            SharedPreferences pref = view.getContext().getSharedPreferences("profile", Context.MODE_PRIVATE);
+            SharedPreferences.Editor prefEditor = pref.edit();
+
+            prefEditor
+                    .putString("name", nameEdit.getText().toString())
+                    .putString("age", nameEdit.getText().toString())
+                    .putString("image_path", imageUri.getPath())
+                    .apply();
+
             Toast.makeText(view.getContext(), "Сохранено!", Toast.LENGTH_SHORT).show();
         });
 
