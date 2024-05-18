@@ -26,6 +26,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.mirea.porynovma.mireaproject.db.App;
+import com.mirea.porynovma.mireaproject.db.Key;
+import com.mirea.porynovma.mireaproject.db.KeysDao;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -39,6 +43,7 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 import javax.crypto.BadPaddingException;
@@ -102,12 +107,14 @@ public class FileFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_file, container, false);
+        EditText fileEdit = view.findViewById(R.id.fileEdit);
         TextView beforeText = view.findViewById(R.id.beforeText);
         TextView afterText = view.findViewById(R.id.afterText);
         Button enbutton = view.findViewById(R.id.enbutton);
         Button debutton = view.findViewById(R.id.debutton);
         SharedPreferences pref = view.getContext().getSharedPreferences("encrypt", Context.MODE_PRIVATE);
-        SharedPreferences.Editor prefEditor = pref.edit();
+        KeysDao keysDao = App.getInstance().getDatabase().keysDao();
+
 
         int storagePermissionStatus1 = ContextCompat.checkSelfPermission(view.getContext(), android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
         int storagePermissionStatus2 = ContextCompat.checkSelfPermission(view.getContext(), android.Manifest.permission.READ_EXTERNAL_STORAGE);
@@ -116,59 +123,45 @@ public class FileFragment extends Fragment {
                 && storagePermissionStatus2 == PackageManager.PERMISSION_GRANTED) {
             isWork = true;
         } else {
-            requestPermissions(new String[] {
+            requestPermissions(new String[]{
                     android.Manifest.permission.READ_EXTERNAL_STORAGE,
                     android.Manifest.permission.WRITE_EXTERNAL_STORAGE
             }, 100);
         }
 
-
-        ActivityResultLauncher<Intent> getFileActivityLauncher = registerForActivityResult(
-                new ActivityResultContracts.StartActivityForResult(),
-                o -> {
-                    if (o.getResultCode() == Activity.RESULT_OK) {
-                        Intent data = o.getData();
-
-                        beforeText.setText(readFile((data.getData().getPath()).split(":")[1]));
-                    }
-                }
-        );
-
         enbutton.setOnClickListener(v -> {
-            Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
-            intent.addCategory(Intent.CATEGORY_OPENABLE);
-            intent.setType("text/plain");
-            getFileActivityLauncher.launch(intent);
-            //String filename = fileEdit.getText().toString();
-            //String text = readFile(filename);
-            //SecretKey key = generateKey();
-            //String encMsg = new String(encryptMsg(text, key), StandardCharsets.UTF_8);
-//
-            //writeFile(filename, encMsg);
-            //prefEditor.putString(filename, new String(key.getEncoded(), StandardCharsets.UTF_8));
-//
-            //beforeText.setText(text);
-            //afterText.setText(encMsg);
-        });
-
-        /*debutton.setOnClickListener(v -> {
             String filename = fileEdit.getText().toString();
             String text = readFile(filename);
-            String key = pref.getString(filename, "");
+            SecretKey key = generateKey();
+            String encMsg = new String(encryptMsg(text, key), StandardCharsets.UTF_8);
 
-            if (key.isEmpty()) {
+            writeFile(filename + "_enc", encMsg);
+            Key k = new Key();
+            k.file = filename + "_enc";
+            k.key = key.getEncoded();
+            keysDao.insert(k);
+
+            beforeText.setText(text);
+            afterText.setText(encMsg);
+        });
+
+        debutton.setOnClickListener(v -> {
+            String filename = fileEdit.getText().toString();
+            String text = readFile(filename);
+            byte[] key = keysDao.getById(filename).key;
+
+            if (false) {
                 Toast.makeText(view.getContext(), "Нет ключа для этого файла", Toast.LENGTH_SHORT).show();
             } else {
-                byte[] newkey = key.getBytes(StandardCharsets.UTF_8);
-                SecretKey originalKey = new SecretKeySpec(newkey, 0, newkey.length, "AES");
+                SecretKey originalKey = new SecretKeySpec(key, 0, key.length, "AES");
                 String decMsg = decryptMsg(text.getBytes(StandardCharsets.UTF_8), originalKey);
 
-                writeFile(filename, decMsg);
+                writeFile(filename + "_dec", decMsg);
 
                 beforeText.setText(text);
                 afterText.setText(decMsg);
             }
-        });*/
+        });
 
         return view;
     }
@@ -192,7 +185,8 @@ public class FileFragment extends Fragment {
             return new String(cipher.doFinal(cipherText));
         } catch (NoSuchAlgorithmException | NoSuchPaddingException | IllegalBlockSizeException |
                  BadPaddingException | InvalidKeyException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
+            return "error";
         }
     }
 
@@ -223,10 +217,10 @@ public class FileFragment extends Fragment {
     }
 
     public String readFile(String filename) {
-        if (!isWork) return "";
-        File path = Environment.getExternalStorageDirectory();
-        File file = new File(path, filename);
-        List<String> lines = new ArrayList<String>();
+        if (!isWork) return "error";
+        File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
+        File file = new File(path, filename + ".txt");
+        List<String> lines = new ArrayList<>();
         try {
             FileInputStream fileInputStream = new FileInputStream(file.getAbsoluteFile());
             InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream, StandardCharsets.UTF_8);
@@ -244,10 +238,10 @@ public class FileFragment extends Fragment {
 
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        Log.d("DASDAS", "ASFGASFAHG");
         if (requestCode == 100) {
             isWork = grantResults.length > 0
                     && grantResults[0] == PackageManager.PERMISSION_GRANTED;
+            Toast.makeText(this.getContext(), isWork ? "yes" : "no", Toast.LENGTH_SHORT).show();
         }
     }
 }

@@ -16,6 +16,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.mirea.porynovma.mireaproject.databinding.ActivityMainBinding;
+import com.mirea.porynovma.mireaproject.db.App;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -48,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
 
         binding.appBarMain.fab.setOnClickListener(v -> {
             navController.navigate(R.id.nav_file);
-            Toast.makeText(this, "Работа с файлами", Toast.LENGTH_SHORT).show();
         });
     }
 

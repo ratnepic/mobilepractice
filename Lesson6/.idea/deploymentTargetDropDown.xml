@@ -19,7 +19,20 @@
         </State>
       </entry>
       <entry key="employeedb">
-        <State />
+        <State>
+          <runningDeviceTargetSelectedWithDropDown>
+            <Target>
+              <type value="RUNNING_DEVICE_TARGET" />
+              <deviceKey>
+                <Key>
+                  <type value="SERIAL_NUMBER" />
+                  <value value="1C07294310FA1LU0" />
+                </Key>
+              </deviceKey>
+            </Target>
+          </runningDeviceTargetSelectedWithDropDown>
+          <timeTargetWasSelectedWithDropDown value="2024-05-18T11:42:13.682154100Z" />
+        </State>
       </entry>
       <entry key="internalfilestorage">
         <State />
