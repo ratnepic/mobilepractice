@@ -113,7 +113,7 @@ public class FileFragment extends Fragment {
         Button enbutton = view.findViewById(R.id.enbutton);
         Button debutton = view.findViewById(R.id.debutton);
         SharedPreferences pref = view.getContext().getSharedPreferences("encrypt", Context.MODE_PRIVATE);
-        KeysDao keysDao = App.getInstance().getDatabase().keysDao();
+        //KeysDao keysDao = App.getInstance().getDatabase().keysDao();
 
 
         int storagePermissionStatus1 = ContextCompat.checkSelfPermission(view.getContext(), android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
@@ -139,7 +139,7 @@ public class FileFragment extends Fragment {
             Key k = new Key();
             k.file = filename + "_enc";
             k.key = key.getEncoded();
-            keysDao.insert(k);
+            //keysDao.insert(k);
 
             beforeText.setText(text);
             afterText.setText(encMsg);
@@ -148,18 +148,18 @@ public class FileFragment extends Fragment {
         debutton.setOnClickListener(v -> {
             String filename = fileEdit.getText().toString();
             String text = readFile(filename);
-            byte[] key = keysDao.getById(filename).key;
+            //byte[] key = keysDao.getById(filename).key;
 
             if (false) {
                 Toast.makeText(view.getContext(), "Нет ключа для этого файла", Toast.LENGTH_SHORT).show();
             } else {
-                SecretKey originalKey = new SecretKeySpec(key, 0, key.length, "AES");
-                String decMsg = decryptMsg(text.getBytes(StandardCharsets.UTF_8), originalKey);
+                //SecretKey originalKey = new SecretKeySpec(key, 0, key.length, "AES");
+                //String decMsg = decryptMsg(text.getBytes(StandardCharsets.UTF_8), originalKey);
 
-                writeFile(filename + "_dec", decMsg);
+                //writeFile(filename + "_dec", decMsg);
 
                 beforeText.setText(text);
-                afterText.setText(decMsg);
+                //afterText.setText(decMsg);
             }
         });
 

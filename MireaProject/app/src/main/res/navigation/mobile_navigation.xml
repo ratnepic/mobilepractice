@@ -57,4 +57,9 @@
         android:name="com.mirea.porynovma.mireaproject.FileFragment"
         android:label="Работа с файлами"
         tools:layout="@layout/fragment_file" />
+    <fragment
+        android:id="@+id/nav_weather"
+        android:name="com.mirea.porynovma.mireaproject.WeatherFragment"
+        android:label="Погода"
+        tools:layout="@layout/fragment_weather" />
 </navigation>
