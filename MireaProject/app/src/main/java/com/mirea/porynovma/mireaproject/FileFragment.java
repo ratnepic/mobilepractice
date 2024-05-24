@@ -129,6 +129,12 @@ public class FileFragment extends Fragment {
             }, 100);
         }
 
+        writeFile("message1", "Hello! This is a message.");
+        writeFile("message2", "Greetings! This is another message.");
+        writeFile("message3", "Congratulations! Your prize is a message.");
+        writeFile("message4", "Goodbye. This is a sad message.");
+
+
         enbutton.setOnClickListener(v -> {
             String filename = fileEdit.getText().toString();
             String text = readFile(filename);
@@ -203,7 +209,6 @@ public class FileFragment extends Fragment {
     }
 
     public void writeFile(String filename, String text) {
-        if (!isWork) return;
         File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
         File file = new File(path, filename + ".txt");
         try {
@@ -217,7 +222,6 @@ public class FileFragment extends Fragment {
     }
 
     public String readFile(String filename) {
-        if (!isWork) return "error";
         File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
         File file = new File(path, filename + ".txt");
         List<String> lines = new ArrayList<>();
@@ -241,7 +245,6 @@ public class FileFragment extends Fragment {
         if (requestCode == 100) {
             isWork = grantResults.length > 0
                     && grantResults[0] == PackageManager.PERMISSION_GRANTED;
-            Toast.makeText(this.getContext(), isWork ? "yes" : "no", Toast.LENGTH_SHORT).show();
         }
     }
 }

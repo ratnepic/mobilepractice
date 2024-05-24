@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:text="Зашифровать"
             app:layout_constraintBottom_toTopOf="@+id/space"
-            app:layout_constraintEnd_toStartOf="@+id/space"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
         <Button
@@ -24,6 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Расшифровать"
+            android:visibility="gone"
             app:layout_constraintBottom_toTopOf="@+id/space"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/space" />
