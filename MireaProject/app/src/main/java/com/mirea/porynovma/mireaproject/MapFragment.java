@@ -110,7 +110,9 @@ public class MapFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentMapBinding.inflate(inflater, container, false);
+
         View view = binding.getRoot();
+        /*
         mapView = binding.mapview;
 
 
@@ -139,6 +141,8 @@ public class MapFragment extends Fragment {
                     establishmentDescriptions[i]
             );
         }
+
+         */
 
         return view;
     }
@@ -223,4 +227,6 @@ public class MapFragment extends Fragment {
         marker.setTitle("Title");
         mapView.getOverlays().add(marker);
     }
+
+
 }

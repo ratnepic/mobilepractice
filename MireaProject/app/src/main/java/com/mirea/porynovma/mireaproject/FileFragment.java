@@ -209,6 +209,7 @@ public class FileFragment extends Fragment {
     }
 
     public void writeFile(String filename, String text) {
+        Log.d("ExternalStorage", "click");
         File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
         File file = new File(path, filename + ".txt");
         try {

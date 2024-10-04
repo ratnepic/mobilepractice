@@ -144,7 +144,7 @@ public class ProfileFragment extends Fragment {
 
             prefEditor
                     .putString("name", nameEdit.getText().toString())
-                    .putString("age", nameEdit.getText().toString())
+                    .putString("age", ageEdit.getText().toString())
                     .putString("image_path", imageUri.getPath())
                     .apply();
 

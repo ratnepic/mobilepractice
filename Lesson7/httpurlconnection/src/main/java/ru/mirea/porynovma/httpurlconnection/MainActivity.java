@@ -123,8 +123,7 @@ public class MainActivity extends AppCompatActivity {
                         "Погода: " +
                                 "\nТемпература: " + temperature +
                                 "\nСкорость ветра: " + windSpeed +
-                                "\nНаправление ветра: " + windDirection
-                );
+                                "\nНаправление ветра: " + windDirection                );
             } catch (JSONException e) {
                 e.printStackTrace();
             }

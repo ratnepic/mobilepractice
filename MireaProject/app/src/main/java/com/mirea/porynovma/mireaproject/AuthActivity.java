@@ -25,7 +25,7 @@ public class AuthActivity extends AppCompatActivity {
         bind = ActivityAuthBinding.inflate(getLayoutInflater());
         setContentView(bind.getRoot());
         mAuth = FirebaseAuth.getInstance();
-        mAuth.signOut();
+        //mAuth.signOut();
 
         bind.signInButton.setOnClickListener(v ->
                 signIn(
