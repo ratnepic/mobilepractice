@@ -18,4 +18,9 @@ public class ItemRepositoryImpl implements ItemRepository {
     public void saveItem(Item item) {
 
     }
+
+    @Override
+    public Item createItem() {
+        return new Item(1);
+    }
 }

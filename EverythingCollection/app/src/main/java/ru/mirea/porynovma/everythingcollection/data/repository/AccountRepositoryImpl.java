@@ -9,7 +9,7 @@ public class AccountRepositoryImpl {
     public Account validateAccount(String name, String password) {
         return new Account();
     }
-    public void createAccount(String name, String password) {
-
+    public Account createAccount(String name, String password) {
+        return new Account();
     }
 }
